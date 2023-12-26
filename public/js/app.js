@@ -19,7 +19,15 @@
 let choiceQuestion = prompt ("do you want to signing up , logging in or changing the password") ;
 let signUp = choiceQuestion == 'sign up'
 
-database = []
+database = [
+    {
+        naMe : 'Omar Barkoka',
+        email : 'omarbarkoka@',
+        age : 20 ,
+        password : ''
+    }
+]
+
 
 // + If the user only writes "exit," they exit the current process, and the choice question is asked again.
 
@@ -35,22 +43,50 @@ while (choiceQuestion == 'exit') {
 //             - Do not save the Name if it has less than 5 characters (excluding spaces).
 //             - Do not save the Name if it contains numbers, "@", or similar special characters.
 
-let askForName = prompt ('enter your Full name').trim().split(' ');
+let askForName;
+let specialCharacters = `\`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`;
+let specialArray = specialCharacters.split("")
+
+
+// hadi return true if name contain special character / false if not
+
+const nameWithSpecial = (name) => {
+    for (let index = 0; index < specialArray.length; index++) {
+        const element = specialArray[index];
+        if (name.includes(element)) {
+            return true
+        }
+    }
+
+    return false;
+    
+} 
+
+
+// this method test if the full name is > 5 and doesn't contain special characters
+
+function fullNameIsValid(enteredName) { 
+    let nameWithoutSpaces = enteredName.trim().replace(' ', '');
+    if (nameWithoutSpaces.length < 5 || nameWithSpecial(enteredName)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+do {
+    askForName = prompt('enter your Full name')
+} while (!fullNameIsValid(askForName));
+
+askForName = askForName.trim().split(' ');
 
 for (let index = 0; index < askForName.length; index++) {
     askForName[index] = askForName[index][0].toUpperCase() + askForName[index].slice(1).toLowerCase();
 }
 
-let name = askForName.toString().replace(',', ' ')
+let fullName = askForName.toString().replace(',', ' ')
 
-console.log(name);
-
-while (name.length < 5 ) {
-    name = prompt ('enter your Full name , should be more than 5 characters');
-}
-
-
-
+console.log(fullName);
 
 
 //             # Email:
@@ -61,24 +97,6 @@ while (name.length < 5 ) {
 //             - Do not save the Email if it does not contain exactly one "@" symbol.
 //             - Ensure the email is unique.
 
-let askForEmail = prompt('enter your email please').trim().toLowerCase()
-
-
-while (askForEmail.includes(' ')) {
-    askForEmail = prompt('enter your email please without space between').trim().toLowerCase()
-}
-while (askForEmail.length < 10) {
-    askForEmail = prompt('your email should has 10 characteres or more').trim().toLowerCase()
-}
-while (askForEmail =! askForEmail.includes('@')) {
-    askForEmail = prompt('enter your email please with an @ ').trim().toLowerCase()
-
-}
-console.log(askForEmail);
-
-
-
-
 
 
 //             # Age:
@@ -86,14 +104,23 @@ console.log(askForEmail);
 //             - Verify that only digits are entered.
 //             - Do not save the Age if it has 0 characters, or if it has 3 characters or more.
 
+
+
 //             # Password:
 //             - Check for leading or trailing spaces.
 //             - Do not save the Password if it has spaces in the middle.
 //             - Require at least one special character from the set: ["@", "#", "-", "+", "*", "/"].
 //             - Require at least 7 characters to confirm the password.
 
+
+
 //             # Password_confirmed:
 //             - The user must re-enter their exact password; otherwise, they are blocked.
+
+
+
+
+
 
 
 
