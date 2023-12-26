@@ -61,6 +61,21 @@ while (name.length < 5 ) {
 //             - Do not save the Email if it does not contain exactly one "@" symbol.
 //             - Ensure the email is unique.
 
+let askForEmail = prompt('enter your email please').trim().toLowerCase()
+
+
+while (askForEmail.includes(' ')) {
+    askForEmail = prompt('enter your email please without space between').trim().toLowerCase()
+}
+while (askForEmail.length < 10) {
+    askForEmail = prompt('your email should has 10 characteres or more').trim().toLowerCase()
+}
+while (askForEmail =! askForEmail.includes('@')) {
+    askForEmail = prompt('enter your email please with an @ ').trim().toLowerCase()
+
+}
+console.log(askForEmail);
+
 
 
 
