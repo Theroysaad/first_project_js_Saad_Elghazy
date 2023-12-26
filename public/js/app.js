@@ -15,13 +15,17 @@
 // ## 3 - Instructions:
 // - Account Creation and Management:
 //     + Allow the user, via prompts, to choose between signing up, logging in, or changing the password.
-// let choiceQuestion = prompt ("do you want to signing up , logging in or changing the password") ;
-// let signUp = choiceQuestion == 'sign up'
+
+let choiceQuestion = prompt ("do you want to signing up , logging in or changing the password") ;
+let signUp = choiceQuestion == 'sign up'
 
 database = []
 
-    // + If the user only writes "exit," they exit the current process, and the choice question is asked again.
+// + If the user only writes "exit," they exit the current process, and the choice question is asked again.
 
+while (choiceQuestion == 'exit') {
+    choiceQuestion = prompt ("do you want to signing up , logging in or changing the password")
+}
 //         * If the user chooses to sign up, here are the details they must enter:
 //             # Name (Full):
 //             - Check for leading or trailing spaces.
@@ -33,23 +37,18 @@ database = []
 
 let askForName = prompt ('enter your Full name').trim().split(' ');
 
-while (askForName == 'exit') {
-    askForName = prompt ("do you want to signing up , logging in or changing the password")
-}
-
-// let naMe = askForName.trim().split(' ')
 for (let index = 0; index < askForName.length; index++) {
     askForName[index] = askForName[index][0].toUpperCase() + askForName[index].slice(1).toLowerCase();
 }
+
 let name = askForName.toString().replace(',', ' ')
 
 console.log(name);
 
-
-
 while (name.length < 5 ) {
-    name = prompt ('enter your Full name , should be > 5 characters');
+    name = prompt ('enter your Full name , should be more than 5 characters');
 }
+
 
 
 
@@ -61,6 +60,11 @@ while (name.length < 5 ) {
 //             - Do not save the Email if it has fewer than 10 characters (excluding spaces).
 //             - Do not save the Email if it does not contain exactly one "@" symbol.
 //             - Ensure the email is unique.
+
+
+
+
+
 
 //             # Age:
 //             - Check for leading, trailing, or middle spaces.
