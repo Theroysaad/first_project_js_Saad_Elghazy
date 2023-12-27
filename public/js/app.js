@@ -44,39 +44,36 @@ while (choiceQuestion == 'exit') {
 //             - Do not save the Name if it contains numbers, "@", or similar special characters.
 
 let askForName;
-let specialCharacters = `\`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`;
-let specialArray = specialCharacters.split("")
+let specialCharacters = /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~]/;
+let numbers = /1234567890/;
 
+let fullNameIsCorrect = false;
 
-// hadi return true if name contain special character / false if not
+// this method validate full name 
 
-const nameWithSpecial = (name) => {
-    for (let index = 0; index < specialArray.length; index++) {
-        const element = specialArray[index];
-        if (name.includes(element)) {
-            return true
-        }
+const validateFullName = (enteredName) => { 
+    let nameWithoutSpaces = enteredName.trim().replace(/\s/g, '');
+    if (nameWithoutSpaces.length < 5) {
+        askForName = prompt('Full name should be more than 5 characters')
+        fullNameIsCorrect = false;
+        return;
     }
 
-    return false;
-    
-} 
-
-
-// this method test if the full name is > 5 and doesn't contain special characters
-
-function fullNameIsValid(enteredName) { 
-    let nameWithoutSpaces = enteredName.trim().replace(' ', '');
-    if (nameWithoutSpaces.length < 5 || nameWithSpecial(enteredName)) {
-        return false;
-    } else {
-        return true;
+    if (specialCharacters.test(enteredName) || numbers.test(enteredName)) {
+        askForName = prompt('Full name should not contain special characters or numbers')
+        fullNameIsCorrect = false;
+        return;
     }
+
+    fullNameIsCorrect = true;
 }
 
-do {
-    askForName = prompt('enter your Full name')
-} while (!fullNameIsValid(askForName));
+
+askForName = prompt('enter your Full name')
+
+while (!fullNameIsCorrect) {
+    validateFullName(askForName);
+}
 
 askForName = askForName.trim().split(' ');
 
@@ -84,7 +81,7 @@ for (let index = 0; index < askForName.length; index++) {
     askForName[index] = askForName[index][0].toUpperCase() + askForName[index].slice(1).toLowerCase();
 }
 
-let fullName = askForName.toString().replace(',', ' ')
+let fullName = askForName.toString().replace(/,/g, ' ')
 
 console.log(fullName);
 
@@ -96,7 +93,6 @@ console.log(fullName);
 //             - Do not save the Email if it has fewer than 10 characters (excluding spaces).
 //             - Do not save the Email if it does not contain exactly one "@" symbol.
 //             - Ensure the email is unique.
-
 
 
 //             # Age:
