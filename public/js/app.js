@@ -1,25 +1,20 @@
-// ### First Project JavaScript:
-
-// ## 1 - Instructions:
-// - Create a folder named: first_project_js_firstName_lastName
-// - Create a repository with the same name as the folder
-// - Adhere to the folder structure
-// - Individual work
-// - Minimum of 10 commits
-// - Deadline: One day
-// - Use of object classes, arrays, functions, prompts, etc.
-
-// ## 2 - Project Objective:
-// - Create a JavaScript program that simulates logging into a bank account using only the console to interact with the user.
-
-// ## 3 - Instructions:
-// - Account Creation and Management:
-//     + Allow the user, via prompts, to choose between signing up, logging in, or changing the password.
 
 let choiceQuestion = prompt ("do you want to signing up , logging in or changing the password") ;
 let signUp = choiceQuestion == 'sign up'
 
-database = [
+
+class Client {
+    constructor(name, email, age, password, amount, transactions) {
+        this.name = name
+        this.email = email
+        this.age = age
+        this.password = password
+        this.amount = amount
+        this.transactions = transactions
+    }
+}
+
+let database = [
     {
         naMe : 'Omar Barkoka',
         email : 'omarbarkoka@',
@@ -29,19 +24,9 @@ database = [
 ]
 
 
-// + If the user only writes "exit," they exit the current process, and the choice question is asked again.
-
 while (choiceQuestion == 'exit') {
     choiceQuestion = prompt ("do you want to signing up , logging in or changing the password")
 }
-//         * If the user chooses to sign up, here are the details they must enter:
-//             # Name (Full):
-//             - Check for leading or trailing spaces.
-//             - The first letter should be capitalized.
-//             - After each space, the first letter should remain capitalized.
-//             - Check that all other characters are in lowercase.
-//             - Do not save the Name if it has less than 5 characters (excluding spaces).
-//             - Do not save the Name if it contains numbers, "@", or similar special characters.
 
 let askForName;
 let specialCharacters = /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~]/;
@@ -84,16 +69,6 @@ for (let index = 0; index < askForName.length; index++) {
 let fullName = askForName.toString().replace(/,/g, ' ')
 
 console.log(fullName);
-
-
-//             # Email:
-//             - Check for leading or trailing spaces.
-//             - Convert all letters to lowercase.
-//             - Do not save the Email if it has spaces in the middle.
-//             - Do not save the Email if it has fewer than 10 characters (excluding spaces).
-//             - Do not save the Email if it does not contain exactly one "@" symbol.
-//             - Ensure the email is unique.
-
 
 
 
@@ -147,10 +122,6 @@ let email = askForEmail
 
 console.log(email);
 
-//             # Age:
-//             - Check for leading, trailing, or middle spaces.
-//             - Verify that only digits are entered.
-//             - Do not save the Age if it has 0 characters, or if it has 3 characters or more.
 
 let askForAge ;
 let ageIsCorrect = false;
@@ -188,11 +159,6 @@ age = askForAge;
 
 console.log(age);
 
-//             # Password:
-//             - Check for leading or trailing spaces.
-//             - Do not save the Password if it has spaces in the middle.
-//             - Require at least one special character from the set: ["@", "#", "-", "+", "*", "/"].
-//             - Require at least 7 characters to confirm the password.
 
 let askForPassword;
 let characteres = /[@, #, -, +, *, /]/;
@@ -237,7 +203,6 @@ console.log(password);
 
 
 //             # Password_confirmed:
-//             - The user must re-enter their exact password; otherwise, they are blocked.
 
 let Password_confirmed = prompt('confirm your password') ;
 
@@ -248,10 +213,9 @@ if (Password_confirmed != password) {
     alert (' you are singed in')
 }
 
+let client1 = new Client (name, email, age, password, 1000, []) ;
 
-
-
-
+database.push(client1) ;
 
 
 //         * If the user chooses to log in, here are the details they must enter:
@@ -263,6 +227,22 @@ if (Password_confirmed != password) {
 
 //         * If the user chooses to change the password:
 //             - They must enter their existing Email in the Database.
+
+console.log(database);
+
+if (choiceQuestion = 'change password') {
+    let enterYouExistingEmail = prompt('enterYouExistingEmail')
+    for (let index = 0; index < database.length; index++) {
+        const element = database[index];
+        if (element.email == enterYouExistingEmail) {
+            let newPassword = prompt('enter new password')
+            element.password = newPassword ;
+            break
+        } 
+    }
+}
+
+
 
 //         * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
 //             # Logout:
