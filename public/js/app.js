@@ -175,9 +175,8 @@ const validateage = (enteredAge) => {
         return;
     }
 
-    fullNameIsCorrect = true;
+    ageIsCorrect = true;
 }
-
 
 askForAge = prompt('enter your age :')
 
@@ -194,6 +193,54 @@ console.log(age);
 //             - Do not save the Password if it has spaces in the middle.
 //             - Require at least one special character from the set: ["@", "#", "-", "+", "*", "/"].
 //             - Require at least 7 characters to confirm the password.
+
+let askForPassword;
+let characteres = /[@, #, -, +, *, /]/;
+
+
+let passwordIsCorrect = false;
+
+// this method validate Password 
+
+const validatePassword = (enteredPassword) => { 
+    let passwordWithoutSpaces = enteredPassword.trim();
+
+        if (/ /.test(passwordWithoutSpaces)) {
+        askForPassword = prompt('Remove spaces please')
+        emailIsCorrect = false;
+        return;
+    }
+    if (passwordWithoutSpaces.length < 7) {
+        askForPassword = prompt('password should be more than 7 characters')
+        passwordIsCorrect = false;
+        return;
+    }
+
+    if (!characteres.test(enteredPassword)) {
+        askForPassword = prompt('password should  contain special characters ')
+        passwordIsCorrect = false;
+        return;
+    }
+
+    passwordIsCorrect = true;
+}
+
+askForPassword = prompt('enter your Full password')
+
+while (!passwordIsCorrect) {
+    validatePassword(askForPassword);
+}
+
+let password = askForPassword
+
+console.log(password);
+
+
+
+
+
+
+
 
 
 
