@@ -236,18 +236,17 @@ let password = askForPassword
 console.log(password);
 
 
-
-
-
-
-
-
-
-
 //             # Password_confirmed:
 //             - The user must re-enter their exact password; otherwise, they are blocked.
 
+let Password_confirmed = prompt('confirm your password') ;
 
+if (Password_confirmed != password) {
+    alert('your have one last chance')
+    Password_confirmed = prompt('confirm your password')
+} else if (Password_confirmed == password) {
+    alert (' you are singed in')
+}
 
 
 
