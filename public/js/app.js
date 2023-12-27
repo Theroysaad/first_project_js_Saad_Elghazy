@@ -95,6 +95,58 @@ console.log(fullName);
 //             - Ensure the email is unique.
 
 
+
+
+let askForEmail ;
+
+let emailIsCorrect = false;
+
+// this method validate email
+
+const validateEmail = (enteredEmail) => { 
+    let emailWithoutSpaces = enteredEmail.trim();
+    if (/ /.test(emailWithoutSpaces)) {
+        askForEmail = prompt('Remove spaces please')
+        emailIsCorrect = false;
+        return;
+    }
+
+    if (emailWithoutSpaces.length < 10) {
+        askForEmail = prompt('Email should be more than 10 characters')
+        emailIsCorrect = false;
+        return;
+    }
+
+    if (!emailWithoutSpaces.includes('@')) {
+        askForEmail = prompt('Email should contain @')
+        emailIsCorrect = false;
+        return;
+    }
+
+    database.forEach(element => {
+        if (element.email === emailWithoutSpaces.toLowerCase()) {
+            askForEmail = prompt('Email already exists, please enter another email')
+            emailIsCorrect = false;
+            return;
+        }
+    });
+
+    emailIsCorrect = true;
+}
+
+
+askForEmail = prompt('Enter your email')
+
+while (!emailIsCorrect) {
+    validateEmail(askForEmail);
+}
+
+askForEmail = askForEmail.trim().toLowerCase();
+
+let email = askForEmail 
+
+console.log(email);
+
 //             # Age:
 //             - Check for leading, trailing, or middle spaces.
 //             - Verify that only digits are entered.
