@@ -152,7 +152,42 @@ console.log(email);
 //             - Verify that only digits are entered.
 //             - Do not save the Age if it has 0 characters, or if it has 3 characters or more.
 
+let askForAge ;
+let ageIsCorrect = false;
 
+// this method validate Age
+
+const validateage = (enteredAge) => { 
+    if (/ /.test(enteredAge)) {
+        askForAge = prompt('Remove spaces please')
+        ageIsCorrect = false;
+        return;
+    }
+    if (enteredAge.length == 0 || enteredAge.length >= 3) {
+        askForAge = prompt('age should contain two characteres')
+        ageIsCorrect = false;
+        return;
+    }
+
+    if (/\D/.test(enteredAge)) {
+        askForAge = prompt('just numbers please')
+        ageIsCorrect = false;
+        return;
+    }
+
+    fullNameIsCorrect = true;
+}
+
+
+askForAge = prompt('enter your age :')
+
+while (!ageIsCorrect) {
+    validateage(askForAge);
+}
+
+age = askForAge;
+
+console.log(age);
 
 //             # Password:
 //             - Check for leading or trailing spaces.
