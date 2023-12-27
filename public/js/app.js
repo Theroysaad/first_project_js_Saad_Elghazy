@@ -19,12 +19,12 @@ class Transaction {
 
 
 let database = [
-    {
-        naMe : 'Omar Barkoka',
-        email : 'omarbarkoka@',
-        age : 20 ,
-        password : ''
-    }
+    // {
+    //     naMe : 'Omar Barkoka',
+    //     email : 'omarbarkoka@',
+    //     age : 20 ,
+    //     password : ''
+    // }
 ]
 
 // * sign in 
