@@ -251,6 +251,96 @@ userChoiceSelection ()
 
 }
 
+// * ---------------------------------------------Login-------------------------------------
+//             # Withdraw Money:
+//             - If the user chooses this option, they can withdraw an amount from their bank (not exceeding the available amount).
+const withdrawMoney = (client)=> {
+    let withdraw = parseInt(prompt ('how much do want to withdraw ?')) 
+    if (client.amount >= withdraw) {
+        client.amount -= withdraw
+        let transaction = new Transaction ('Withdraw Money', withdraw)
+        client.transactions.push(transaction) 
+        console.log(transaction);
+    }
+}
+
+//             # Deposit Money:
+//             - If the user chooses this option, they can deposit the desired amount (not exceeding 1000 dirhams).
+
+const depositMoney = (client)=> {
+    let deposit = parseInt(prompt ('how much do want to deposit ?')) 
+    client.amount += deposit
+    let transaction = new Transaction ('Deposit Money', deposit)
+    client.transactions.push(transaction) 
+    console.log(transaction);
+}
+
+//             # Take a Loan:
+//             - If the user chooses this option, they can take a loan up to 20% of what they already have.
+//             - They receive an additional 20%, but lose 10% with each login until reaching the amount of their loan.
+
+//             # Invest:
+//             - If the user chooses this option, they can invest any amount in the bank.
+//             - Upon the next login, they will receive 20% of their investment each time until reaching 120% (earning 20% on each investment).
+
+//             # History:
+//             - Ability to view the entire transaction history.
+
+const history = (client)=> {
+    console.table(client.transactions)
+}
+
+const afterLogIn = (client) => {
+    let chooseOption = prompt('choose : Logout (number 1) , Withdraw Money (number 2) , Deposit Money (number 3) , Take a Loan (number 4) , Invest (number 5) , History (number 6) ')
+    if (chooseOption == "1") {
+        alert ('your are loged out')
+        userChoiceSelection()
+        return ;
+    } else if (chooseOption == '2') {
+        withdrawMoney(client)
+        afterLogIn(client)
+        return ;
+    } else if (chooseOption == '3') {
+        depositMoney(client)
+        afterLogIn(client)
+        return ;
+    } else if (chooseOption == '6') {
+        history(client)
+        afterLogIn(client)
+        return ;
+    }
+}
+
+const emailFromDatabase = (emailEntered) => {
+    for (let key in database) {
+        if (database[key].email === emailEntered) {
+            return database[key]
+        }
+    }
+    return undefined;
+}
+
+// ! login method
+
+const logIn = () => {
+    let email = prompt('Please enter your email to logIn');
+
+    while (emailFromDatabase(email) == undefined) {
+        email = prompt('Email in not in database')
+    }
+
+    let client = emailFromDatabase(email)
+
+    let password = prompt('Please enter your password')
+
+    while (client.password != password) {
+        password = prompt('Incorrect password, try again!')
+    }
+
+    afterLogIn(client)
+}
+
+
 // !   ----------    --------  -----      choices
 
 const userChoiceSelection = () => {
@@ -261,7 +351,7 @@ const userChoiceSelection = () => {
             signIn();
             break
         case '2':
-            //logging();
+            logIn();
             break
         case '3':
             ChangePassword();
@@ -273,12 +363,3 @@ const userChoiceSelection = () => {
 }
 
 userChoiceSelection()
-
-
-//         * If the user chooses to log in, here are the details they must enter:
-//             # Email:
-//             - Check if the email exists in our Database.
-            
-//             # Password:
-//             - Check if the entered password is associated with the previously entered email.
-
