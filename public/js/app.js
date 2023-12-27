@@ -1,8 +1,4 @@
 
-let choiceQuestion = prompt ("do you want to signing up , logging in or changing the password") ;
-let signUp = choiceQuestion == 'sign up'
-
-
 class Client {
     constructor(name, email, age, password, amount, transactions) {
         this.name = name
@@ -14,6 +10,14 @@ class Client {
     }
 }
 
+class Transaction {
+    constructor(type, amount){
+        this.type = type
+        this.amount = amount 
+    }
+}
+
+
 let database = [
     {
         naMe : 'Omar Barkoka',
@@ -23,11 +27,10 @@ let database = [
     }
 ]
 
+// * sign in 
 
-while (choiceQuestion == 'exit') {
-    choiceQuestion = prompt ("do you want to signing up , logging in or changing the password")
-}
-
+const signIn = ()=>{
+    
 let askForName;
 let specialCharacters = /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~]/;
 let numbers = /1234567890/;
@@ -217,6 +220,60 @@ let client1 = new Client (name, email, age, password, 1000, []) ;
 
 database.push(client1) ;
 
+// after sign in 
+userChoiceSelection ()
+
+}
+
+
+
+//         * If the user chooses to change the password:
+//             - They must enter their existing Email in the Database.
+
+const ChangePassword = ()=> {
+    console.log(database);
+
+if (choiceQuestion = 'change password') {
+    let enterYouExistingEmail = prompt('enter Your Existing Email')
+    for (let index = 0; index < database.length; index++) {
+        const element = database[index];
+        if (element.email == enterYouExistingEmail) {
+            let newPassword = prompt('enter new password')
+            element.password = newPassword ;
+            alert('the password is changed in your database')
+            break
+        } 
+    }
+}
+
+// after changing the password
+userChoiceSelection ()
+
+}
+
+// !   ----------    --------  -----      choices
+
+const userChoiceSelection = () => {
+    let userChoice = prompt('Please, choose between signing up (enter 1), logging in (enter 2), or changing the password (enter 3)')
+    
+    switch (userChoice.toString()) {
+        case '1':
+            signIn();
+            break
+        case '2':
+            //logging();
+            break
+        case '3':
+            ChangePassword();
+            break
+        case 'exit':
+            userChoiceSelection();
+            break
+    }
+}
+
+userChoiceSelection()
+
 
 //         * If the user chooses to log in, here are the details they must enter:
 //             # Email:
@@ -225,42 +282,3 @@ database.push(client1) ;
 //             # Password:
 //             - Check if the entered password is associated with the previously entered email.
 
-//         * If the user chooses to change the password:
-//             - They must enter their existing Email in the Database.
-
-console.log(database);
-
-if (choiceQuestion = 'change password') {
-    let enterYouExistingEmail = prompt('enterYouExistingEmail')
-    for (let index = 0; index < database.length; index++) {
-        const element = database[index];
-        if (element.email == enterYouExistingEmail) {
-            let newPassword = prompt('enter new password')
-            element.password = newPassword ;
-            break
-        } 
-    }
-}
-
-
-
-//         * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
-//             # Logout:
-//             - If the user chooses this option, they are logged out and offered the option, as at the beginning, to sign up, log in, or change the password.
-            
-//             # Withdraw Money:
-//             - If the user chooses this option, they can withdraw an amount from their bank (not exceeding the available amount).
-            
-//             # Deposit Money:
-//             - If the user chooses this option, they can deposit the desired amount (not exceeding 1000 dirhams).
-            
-//             # Take a Loan:
-//             - If the user chooses this option, they can take a loan up to 20% of what they already have.
-//             - They receive an additional 20%, but lose 10% with each login until reaching the amount of their loan.
-            
-//             # Invest:
-//             - If the user chooses this option, they can invest any amount in the bank.
-//             - Upon the next login, they will receive 20% of their investment each time until reaching 120% (earning 20% on each investment).
-            
-//             # History:
-//             - Ability to view the entire transaction history.
